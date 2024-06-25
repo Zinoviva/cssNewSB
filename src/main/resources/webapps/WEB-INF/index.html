@@ -1,0 +1,114 @@
+<!-- index.html-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,
+				initial-scale=1.0"/>
+    <link rel="stylesheet"
+          href="style.css"/>
+    <title>Мои финансы</title>
+</head>
+
+<body>
+<div class="allbody">
+    <div align="left">
+        <h2 th:text="'Пользователь: ' + ${userName}"> </h2>
+<!--        <h2><a th:href="@{http://localhost:8080/logout}">Выход</a></h2>-->
+    </div>
+
+    <div class="allbody2">
+        <div align="right">
+            <h2><a th:href="@{http://localhost:8080/logout}">Выход</a></h2>
+        </div>
+
+
+    <div class="summary">
+        <div>
+            <h1 style="color: black;">
+                Мои финансы
+            </h1>
+        </div>
+
+        <br/>
+        <div class="total" style="display:flex; flex-direction: row; gap:20px">
+            <div>
+                Доход:
+                <div>
+                    <h2 style="color: green;" th:name="incomeSum" th:text="${incomeSum}"> </h2>
+                </div>
+            </div>
+            <div>
+                Расход:
+                <div>
+                    <h2 style="color: red;" th:name="expenseSum" th:text="${expenseSum}"> </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="commands" >
+        <form method="get" th:action="@{/addexpense}">
+            <input type="submit" name="addexpense" class="btn btn-primary" value="Добавить расход">
+        </form>
+        <form method="get" th:action="@{/addincome}">
+            <input type="submit" name="addincome" class="btn btn-primary" value="Добавить доход">
+        </form>
+        <form method="get" th:action="@{/reports/reports}">
+            <input type="submit" name="reports" class="btn btn-primary" value="Отчеты">
+        </form>
+<!--        <button onclick="window.location='add.html'">Добавить расход</button>-->
+<!--        <button onclick="window.location='add.html'">Добавить доход</button>-->
+<!--        <button onclick="window.location='reports.html'">Отчеты</button>-->
+    </div>
+
+    <hr class="vertical"/>
+    <div class="root">
+        <div id="items">
+            <h2>Доходы и расходы</h2>
+            <div>
+                Выберите период:
+                <div>
+                    <form method="get" th:object="${report}" th:action="@{/setperiod}">
+                        Дата с: <input type="date" id="start" th:name="dateFrom" th:value="${dateFrom}" />
+                        Дата по: <input type="date" id="end" th:name="dateTo" th:value="${dateTo}" />
+                        <input type="submit" value="Установить">
+                        <div style="gap:20px">
+                            <label for="general"></label><input type="radio" id="general" name="rbn" th:value="1" th:field="*{option}"/>Общий
+                            <label for="expenses"></label><input type="radio" id="expenses" name="rbn" th:value="2" th:field="*{option}"/>Расходы
+                            <label for="incomes"></label><input type="radio" id="incomes" name="rbn" th:value="3" th:field="*{option}"/>Доходы
+                        </div>
+                        <p></p>
+                    </form>
+                </div>
+            </div>
+
+            <table id="table">
+                <tr class="titles">
+                    <th>Категория</th>
+                    <th>Сумма</th>
+                    <th>Дата</th>
+                    <th></th>
+                    <th></th>
+
+                </tr>
+                <form method="get" th:action="@{/edit}">
+                    <tr th:each="incomeAndExpense : ${userIncomesAndExpenses}" th:style="${incomeAndExpense.categoryType} == 'I' ? 'color: green;' : 'color: red;'">
+                        <td th:text="${incomeAndExpense.category}"></td>
+                        <td th:text="${incomeAndExpense.sum}"></td>
+                        <td th:text="${incomeAndExpense.date}"></td>
+                        <td><button type="submit" th:name="edit" th:value="${incomeAndExpense.id}+'_'+${incomeAndExpense.categoryType}">Изменить</button></td>
+                        <td><button type="submit" th:name="delete" th:value="${incomeAndExpense.id}+'_'+${incomeAndExpense.categoryType}">Удалить</button></td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+        <hr class="vertical"/>
+
+    </div>
+</body>
+</html>

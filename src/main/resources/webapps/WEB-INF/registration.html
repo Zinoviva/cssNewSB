@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="form-group"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <!-- подключаем бутстрап -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Регистрация</h2>
+            <p>Заполните все поля, чтобы создать новый аккаунт.</p>
+        </div>
+        <div>
+            <!-- форма регистрации -->
+            <form method="get" th:action="@{/newuser}">
+                <!-- поле ввода электронной почты -->
+                <div class="form-group">
+                    <label>Логин</label>
+                    <input type="login" name="login" class="form-control" th:name="login" th:value="${login}"  required />
+                </div>
+                <!-- поле ввода пароля -->
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" name="password" class="form-control" th:name="password" th:value="${password}" required >
+                </div>
+                <!-- поле ввода имени пользователя -->
+                <div class="form-group">
+                    <label>Имя пользователя</label>
+                    <input type="firstName" name="firstName" class="form-control" th:name="firstName" th:value="${firstName}" required>
+                </div>
+                <!-- кнопка отправки данных на сервер -->
+                <div class="form-group">
+                    <input type="submit" name="submit" class="btn btn-primary" value="Зарегистрироваться">
+                </div>
+                <!-- вход для тех, у кого уже есть аккаунт -->
+                <p>Уже зарегистрированы? <a th:href="@{http://localhost:8080/login}">Войти</a>.</p>
+<!--                <p>Уже зарегистрированы? <a href="login.html">Назад</a>.</p>-->
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

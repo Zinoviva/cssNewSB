@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Отчеты</title>
+    <link rel="stylesheet"
+          href="style.css"/>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</head>
+
+<body>
+<div>
+    <h2 th:text="${actiontype}"> Выберите период: </h2>
+<!--    <h2><a th:href="@{http://localhost:8080/main}">Обратно</a></h2>-->
+</div>
+<form method="get" th:action="@{/reports/create}" th:target="_blank">
+    Дата с: <input type="date" id="start" th:name="dateFrom" th:value="${dateFrom}" />
+    Дата по: <input type="date" id="end" th:name="dateTo" th:value="${dateTo}" />
+    <br>
+    <button type="submit" th:name="income">Отчет по доходам</button>
+    <br>
+    <button type="submit" th:name="expense">Отчет по расходам</button>
+    <br>
+    <button type="submit" th:name="categories">Отчет по категориям</button>
+</form>
+<h3><a th:href="@{http://localhost:8080/main}">Обратно</a></h3>
+<!--<h2><p><a href="index.html">Назад</a>.</p></h2>-->
+</body>
+</html>

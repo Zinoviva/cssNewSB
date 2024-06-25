@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width,
+				initial-scale=1.0"/>
+    <link rel="stylesheet"
+          href="style.css"/>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<div align="center">
+    <h2 th:text="${actiontype}"> Введите операцию для добавления: </h2>
+<!--    <h2><a th:href="@{http://localhost:8080/main}">Обратно</a></h2>-->
+</div>
+
+<form method="get" th:action="@{/add}">
+    <select class="form-control" th:name="categoryId" th:value="${categoryId}">
+        <option th:each="category : ${categories}"
+                th:value="${category.id}"
+                th:text="${category.name}"></option>
+    </select>
+    <input class="input" type="text" th:name="sum" th:value="${sum}" />
+    <input class="input" type="date" th:name="date"  th:value="${date}" />
+    <button type="submit" onclick="showAddedMessage();">Добавить</button>
+</form>
+<h3><a th:href="@{http://localhost:8080/main}">Обратно</a></h3>
+</body>
+</html>
